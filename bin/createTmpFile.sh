@@ -95,7 +95,9 @@ function createTmpFile  {
     # deleted
     #https://unix.stackexchange.com/a/181938
     prefix=`basename $0`
-    tmp=$(mktemp /tmp/${prefix}.XXXXXX)
+    # gi.ucsc.edu best practics is to use /data/tmp
+    # /tmp is small
+    tmp=$(mktemp /data/tmp/${prefix}.XXXXXX)
     
     # return name of tmp file
     echo $tmp
