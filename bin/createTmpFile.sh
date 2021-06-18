@@ -12,8 +12,12 @@
 
 # list of public fuctions
 # debug_on_exit
+
+#
 # add_on_exit
 #   see example bellow
+#   only runs if process is killed. It does not run if process terminates by running off the end of script
+#
 # createTmpFile
 # createTmpDir
 

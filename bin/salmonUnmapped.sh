@@ -3,6 +3,9 @@
 # Andrew E. Davidson, aedavids@ucsc.edu
 # 4/29/21
 #
+# defines function runSalmon()
+#
+# ref:
 # https://salmon.readthedocs.io/en/latest/salmon.html#writemappings
 # --writeMappings=AEDWIP.sam does not do what we want
 # it write the salmon index reference to a file AEDWIP.sam in SAM format
@@ -16,7 +19,6 @@
 set -x # turn debug on
 # set + x # turn debug off
 
-# AEDWIP TODO split this in to a separate file to make reuse easier
 function runSalmon() {
     # runs salmon on one sample and outputs to that directory
     salmonIndexDir="$1"

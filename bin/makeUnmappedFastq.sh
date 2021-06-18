@@ -17,16 +17,24 @@
 set -x # turn debug on
 # set +x # turn debug off
 
+
+AEDWIP TODO:
+- parameterise the listOfSalmonOutDir
+
 source createTmpFile.sh
 
-# send a txt msg to script finishes
+# send a txt msg when script finishes
 extraBin=/private/home/aedavids/extraCellularRNA/bin
 add_on_exit "${extraBin}/dataIsUpSMS.sh 6508662639@txt.att.net"
 
+#
+# work around data migration from public to private/PRISM
+# permissions and user ids where not set up correctly
 # redirect file permission errors to /dev/null
-listOfSalmonOutDir=`find /private/groups/kimlab/kras.ipsc/ -type d -name gencode.v35.ucsc.rmsk.salmon.v1.3.0.sidx -print 2> /dev/null`
+#listOfSalmonOutDir=`find /private/groups/kimlab/kras.ipsc/ -type d -name gencode.v35.ucsc.rmsk.salmon.v1.3.0.sidx -print 2> /dev/null`
+listOfSalmonOutDir=`find /private/groups/kimlab/kras.ipsc/ -type d -name gencode.v35.ucsc.rmsk.salmon.v1.3.0.sidx`
 
-# create an variable of type in
+# create an variable of type int
 declare -i i
 i=0
 

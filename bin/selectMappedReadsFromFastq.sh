@@ -9,6 +9,10 @@
 #set -x # turn debug on
 # set + x # turn debug off
 
+aedwip: todo add to README
+
+
+
 scriptName=`basename $0`
 if [ $# -ne 2 ]; then
     echo "ERROR: usage $scriptName fastq aux_info/unmapped_names.txt"
@@ -50,6 +54,10 @@ add_on_exit rm $mappedNames
 diff $allNames $unMappedNamesList | grep "^<" | cut -d " " -f 2 > $mappedNames
 
 #
-# select the mapped reads
-#
+# FASTA/Q sequence processing toolkit -- seqtk
+# extract subsequences from FASTA/Q
+# 
 seqtk subseq "${fastq}" "${mappedNames}"
+
+# clean up temp file
+rm unMappedNamesList mappedNames
