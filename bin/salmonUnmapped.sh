@@ -64,6 +64,8 @@ function runSalmon() {
             fi
 
         #fi
+    else
+        echo "[INFO] skipping ${outputDir}/quant.sf it already exists"
     fi
 }
 

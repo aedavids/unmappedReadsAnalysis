@@ -40,9 +40,10 @@ fileListPath=$2
 # set +x # turn debug off
 
 source createTmpFile.sh
+source salmonUnmapped.sh # import runSalmon()
 
 function startBatch() {
-    set -x # turn debug trace on
+    #set -x # turn debug trace on
     fileListPathArg=$1
     refIndexDirArg=$2
 
@@ -54,14 +55,19 @@ function startBatch() {
         f2=`echo $f1 | sed -e 's/forward/reverse/g'`
         root=`dirname $fwdFastq`
         outputDir="${root}/${refIndexName}"
-        echo AEDWIP salmonUnmapped.sh $refIndexDirArg $f1 $f2 $outputDir
+
+        # salmonUnmapped.sh will skip if quant.sf already exists
+        # log command
+        cmd="runSalmon $refIndexDirArg $f1 $f2 $outputDir"
+        echo $cmd
+        eval $cmd
 
         # add white space to make it easier to read log file
         printf "\n"
     done
     
     'rm' -rf $fileListPathArg
-    set +x # turn debug trace off
+    #set +x # turn debug trace off
 }
 
 
