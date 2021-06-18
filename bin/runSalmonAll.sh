@@ -80,7 +80,7 @@ function startBatch() {
 numFiles=`cat ${fileListPath} | wc -l `
 
 # if numFiles / numBatch is real, you get back the quotient, ie an integer value
-numBatches=6
+numBatches=10
 numLinesPerSplit=$(expr $numFiles / $numBatches)
 
 tmpDir=`createTmpDir`
