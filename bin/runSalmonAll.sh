@@ -41,19 +41,25 @@ set -x   # turn debug on
 
 source createTmpFile.sh
 
-function startBatch() { 
-    fileListPath=$1
-    refIndexName=$2
-    refIndexDir=$3
+function startBatch() {
+    set -x
+    printf "\n\n********* begin $1\n"
+    fileListPathArg=$1
+    refIndexDirArg=$2
 
-    for fwdFastq in `cat fileListPath`;
+    refIndexName=`basename $refIndexDirArg`
+
+    for fwdFastq in `cat $fileListPathArg`;
     do
         f1=$fwdFastq
         f2=`echo $f1 | sed -e 's/forward/reverse/g'`
         root=`dirname $fwdFastq`
         outputDir="${root}/${refIndexName}"
-        echo AEDWIP salmonUnmapped.sh $refIndexDir $f1 $f2 $outputDir
+        echo AEDWIP salmonUnmapped.sh $refIndexDirArg $f1 $f2 $outputDir
     done
+    'rm' -rf $fileListPathArg
+
+    printf "\n\n********* end $1\n"    
 }
 
 
@@ -70,12 +76,16 @@ numBatches=6
 numLinesPerSplit=$(expr $numFiles / $numBatches)
 
 tmpDir=`createTmpDir`
-add_on_exit 'rm' -rf $tmpDir
+# bug, deletes before children run #add_on_exit 'rm' -rf $tmpDir
 
 # fileListPath might be relative
 d=`pwd`
 cd $tmpDir
 split --lines=$numLinesPerSplit "$d/$fileListPath"
+printf "\n*********** aedwip\n"
+pwd
+ls -l
+printf "***********\n\n"
 
 
 #
@@ -88,9 +98,21 @@ now=`${extraBin}/dateStamp.sh`
 logDir="./${scriptName}.${now}.log"
 mkdir -p $logDir
 
+# create an variable of type int
+declare -i debugCount
+debugCount=0
+
 for batchFile in `ls $tmpDir`;
 do
-    startBatch $batchFile $refIndexName $refIndexPath 2>&1 >  "${logDir}/${batchFile}" &
+    printf "\n******** next batch\n"
+    startBatch "${tmpDir}/${batchFile}" $refIndexPath 2>&1 >  "${logDir}/${batchFile}" &
+
+    debugCount=${debugCount}+1
+    if [ $debugCount -gt 1 ];
+    then
+        break
+    fi
+
 done
 
 # do
@@ -104,6 +126,8 @@ done
 
     
 #
-# clean up
+# clean up is done in startBatch
 #
-'rm' -rf $tmpDir
+
+printf "[WARNING] remove $tmpDir\n"
+echo ""
