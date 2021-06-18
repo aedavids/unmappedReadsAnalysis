@@ -36,14 +36,13 @@ fi
 refIndexPath=$1
 fileListPath=$2
 
-set -x   # turn debug on
-# # set +x # turn debug off
+# set -x   # turn debug on
+# set +x # turn debug off
 
 source createTmpFile.sh
 
 function startBatch() {
-    set -x
-    printf "\n\n********* begin $1\n"
+    set -x # turn debug trace on
     fileListPathArg=$1
     refIndexDirArg=$2
 
@@ -56,10 +55,13 @@ function startBatch() {
         root=`dirname $fwdFastq`
         outputDir="${root}/${refIndexName}"
         echo AEDWIP salmonUnmapped.sh $refIndexDirArg $f1 $f2 $outputDir
-    done
-    'rm' -rf $fileListPathArg
 
-    printf "\n\n********* end $1\n"    
+        # add white space to make it easier to read log file
+        printf "\n"
+    done
+    
+    'rm' -rf $fileListPathArg
+    set +x # turn debug trace off
 }
 
 
@@ -82,11 +84,10 @@ tmpDir=`createTmpDir`
 d=`pwd`
 cd $tmpDir
 split --lines=$numLinesPerSplit "$d/$fileListPath"
-printf "\n*********** aedwip\n"
-pwd
-ls -l
-printf "***********\n\n"
-
+# printf "\n*********** begin debug \n"
+# pwd
+# ls -l
+# printf "************* end debug \n\n"
 
 #
 # run batches in background
@@ -104,30 +105,23 @@ debugCount=0
 
 for batchFile in `ls $tmpDir`;
 do
-    printf "\n******** next batch\n"
-    startBatch "${tmpDir}/${batchFile}" $refIndexPath 2>&1 >  "${logDir}/${batchFile}" &
+    logFile="${logDir}/${batchFile}"
+    printf "[INFO} creating log file $logFile \n"
+    startBatch "${tmpDir}/${batchFile}" $refIndexPath 2>&1 > ${logFile} &
 
-    debugCount=${debugCount}+1
-    if [ $debugCount -gt 1 ];
-    then
-        break
-    fi
+    # debugCount=${debugCount}+1
+    # if [ $debugCount -gt 1 ];
+    # then
+    #     break
+    # fi
 
 done
 
-# do
-#     printf "\n"
-#     f1=$fwdFastq
-#     f2=`echo $f1 | sed -e 's/forward/reverse/g'`
-#     root=`dirname $fwdFastq`
-#     outputDir="${root}/${refIndexName}"
-#     salmonUnmapped.sh $salmonIndexDir $f1 $f2 $outputDir
-# done
-
     
 #
-# clean up is done in startBatch
+# tmp files are deleted in  startBatch
+# we leak the temp data dir
 #
 
-printf "[WARNING] remove $tmpDir\n"
+printf "\n\n[WARNING] remove $tmpDir\n"
 echo ""
