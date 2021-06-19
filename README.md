@@ -178,7 +178,7 @@ some shell scripts may use tools like fastqc that are installed in the conda env
 - createStarIndex.sh
   - single use, creates reference need for STAR
 
-## Salmon meta data mining prep pipeline
+## step 1) Salmon meta data mining prep pipeline
 - samonUnmapped.sh
   - runs salmon quant with --writeUnmappedNames
 
@@ -190,15 +190,24 @@ some shell scripts may use tools like fastqc that are installed in the conda env
   /private/groups/kimlab/kras.ipsc/data/bulk.data/day.5/ctrl.2/output_forward_paired.fq.gz
   ```
   
+  ```
+  setsid sh -c ' set -x; \
+      runSalmonAll.sh \
+      /scratch/aedavids/sel.align.gencode.v35.ucsc.rmsk.salmon.v1.3.0.sidx \
+      ../data/aale.laud.exo/aale.laud.exo.foward.paired.fq.gz.list.txt ' \
+      2>&1 > runSalmonAll.sh.`../../extraCellularRNA/bin/dateStamp.sh`.out &
+  ```
+  
 - makeUnmappedFastq.sh
   - parses the ${salmonOut}/aux_info/unmapped_names.txt file and create a separate
   pair of fastq files for each unamapped category, d, u, m1, m2, m12, plus a fastq
   file containing all the unmapped reads and one containing all the mapped reads
   
+  - calls selectUnmappedReadsFromFastq.sh
 
-runSalmonAll.sh -> salmonUnmapped.sh, makeUnmappedFastq.sh
+
   
-## mineSalmonLogs.sh pipe line
+## step 2) mineSalmonLogs.sh pipe line
 - mineSalmonLogs.sh 
   - outputs tsv with columns
   - sampleName mappingRate salmonOut readCount index mates1 mates2

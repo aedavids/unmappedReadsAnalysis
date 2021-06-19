@@ -1,6 +1,0 @@
-/private/groups/kimlab/kras.ipsc/data/exo.data/gen1c.day.5.exo.input.data/ctrl.1/output_forward_paired.fq.gz
-/private/groups/kimlab/kras.ipsc/data/exo.data/gen1c.day.5.exo.input.data/ctrl.2/output_forward_paired.fq.gz
-/private/groups/kimlab/kras.ipsc/data/exo.data/gen1c.day.5.exo.input.data/ctrl.3/output_forward_paired.fq.gz
-/private/groups/kimlab/kras.ipsc/data/exo.data/gen1c.day.5.exo.input.data/kras.1/output_forward_paired.fq.gz
-/private/groups/kimlab/kras.ipsc/data/exo.data/gen1c.day.5.exo.input.data/kras.2/output_forward_paired.fq.gz
-/private/groups/kimlab/kras.ipsc/data/exo.data/gen1c.day.5.exo.input.data/kras.3/output_forward_paired.fq.gz
