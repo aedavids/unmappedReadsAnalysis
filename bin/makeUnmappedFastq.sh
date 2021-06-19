@@ -28,7 +28,7 @@ fi
 set -x # turn debug on
 # set +x # turn debug off
 
-listOfSalmonOutDir=$1
+listOfSalmonOutDir=`cat $1`
 
 source createTmpFile.sh
 
