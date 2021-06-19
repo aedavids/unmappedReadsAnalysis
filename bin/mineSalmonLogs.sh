@@ -6,9 +6,13 @@
 
 scriptName=`basename $0`
 if [ $# -ne 1 ]; then
-    echo "ERROR: usage $scriptName listOfSalmonOutDir"
+    echo "ERROR: usage $scriptName listOfSalmonLogs"
     echo "example of how how to create list of SalmonOutDir"
-    echo "find /private/groups/kimlab/kras.ipsc/ -type d -name gencode.v35.ucsc.rmsk.salmon.v1.3.0.sidx > listOfSalmonOutDir"
+    echo " find /private/groups/kimlab/panc.plasma.2020 -name salmon_quant.log \ "
+    echo "  | grep sel.align.gencode.v35.ucsc.rmsk.salmon.v1.3.0.sidx \ "
+    echo "  > panc.plasma.2020.sel.align.gencode.v35.ucsc.rmsk.salmon.v1.3.0.sidx.salmon.logs.txt "
+    echo ""
+    echo "tsv will be written to stdout "
     exit 1
 fi
 
