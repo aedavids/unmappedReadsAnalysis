@@ -19,6 +19,8 @@ fi
 fastq=$1
 unmappedNames=$2
 
+AEWIP do not run if files already exist
+
 source createTmpFile.sh
 namesList=`createTmpFile`
 add_on_exit rm $namesList

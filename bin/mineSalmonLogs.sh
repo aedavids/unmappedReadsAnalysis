@@ -4,15 +4,24 @@
 # 4/29/21
 #
 
+scriptName=`basename $0`
+if [ $# -ne 1 ]; then
+    echo "ERROR: usage $scriptName listOfSalmonOutDir"
+    echo "example of how how to create list of SalmonOutDir"
+    echo "find /private/groups/kimlab/kras.ipsc/ -type d -name gencode.v35.ucsc.rmsk.salmon.v1.3.0.sidx > listOfSalmonOutDir"
+    exit 1
+fi
+
+salmonLogs=`cat $1`
 # set -x # turn debug on
 # set + x # turn debug off
 
 source createTmpFile.sh
 
-kl=/private/groups/kimlab
-krasDir="${kl}/kras.ipsc/data"
-replicates="bulk.data exo.data"
-salmonLogs=`find ${krasDir}/{"bulk.data","exo.data"} -name salmon_quant.log`
+# kl=/private/groups/kimlab
+# krasDir="${kl}/kras.ipsc/data"
+# replicates="bulk.data exo.data"
+# salmonLogs=`find ${krasDir}/{"bulk.data","exo.data"} -name salmon_quant.log`
 
 # salmonLogs="/private/groups/kimlab/kras.ipsc/data/bulk.data/day.5/ctrl.1/gencode.salmon.out/logs/salmon_quant.log /private/groups/kimlab/kras.ipsc/data/bulk.data/day.5/ctrl.1/gencode.te.locus.salmon.out/logs/salmon_quant.log /private/groups/kimlab/kras.ipsc/data/bulk.data/day.5/ctrl.1/locus.te.combined.salmon.out/logs/salmon_quant.log /private/groups/kimlab/kras.ipsc/data/bulk.data/day.5/ctrl.1/gencode.v35.ucsc.rmsk.salmon.v1.3.0.sidx/logs/salmon_quant.log /private/groups/kimlab/kras.ipsc/data/bulk.data/day.5/ctrl.2/gencode.salmon.out/logs/salmon_quant.log /private/groups/kimlab/kras.ipsc/data/bulk.data/day.5/ctrl.2/gencode.te.locus.salmon.out/logs/salmon_quant.log /private/groups/kimlab/kras.ipsc/data/bulk.data/day.5/ctrl.2/locus.te.combined.salmon.out/logs/salmon_quant.log /private/groups/kimlab/kras.ipsc/data/bulk.data/day.5/ctrl.2/gencode.v35.ucsc.rmsk.salmon.v1.3.0.sidx/logs/salmon_quant.log"
 
