@@ -14,16 +14,28 @@
 # m2  = Right orphan (mappinds were found for the right read, but not the left).
 # m12 = Left and right orphans. Both the left and right read mapped, but never to the same transcript.
 
+scriptName=`basename $0`
+if [ $# -ne 1 ]; then
+    echo "ERROR: usage $scriptName listOfSalmonOutDir"
+    echo "ERROR cli call: $@"
+    echo "example of how how to create list of SalmonOutDir"
+    echo "find /private/groups/kimlab/kras.ipsc/ -type d -name gencode.v35.ucsc.rmsk\
+.salmon.v1.3.0.sidx > listOfSalmonOutDir"
+    exit 1
+fi
+
+
 set -x # turn debug on
 # set +x # turn debug off
 
-
-AEDWIP TODO:
-- parameterise the listOfSalmonOutDir
+listOfSalmonOutDir=$1
 
 source createTmpFile.sh
 
-# send a txt msg when script finishes
+# send a txt msg when script is kill or crashes unexpectedly
+# AEDWIP TODO
+# see https://jmmv.dev/2019/11/wait-for-process-group-linux.html
+# for how to send message when process group finishes
 extraBin=/private/home/aedavids/extraCellularRNA/bin
 add_on_exit "${extraBin}/dataIsUpSMS.sh 6508662639@txt.att.net"
 
@@ -32,7 +44,7 @@ add_on_exit "${extraBin}/dataIsUpSMS.sh 6508662639@txt.att.net"
 # permissions and user ids where not set up correctly
 # redirect file permission errors to /dev/null
 #listOfSalmonOutDir=`find /private/groups/kimlab/kras.ipsc/ -type d -name gencode.v35.ucsc.rmsk.salmon.v1.3.0.sidx -print 2> /dev/null`
-listOfSalmonOutDir=`find /private/groups/kimlab/kras.ipsc/ -type d -name gencode.v35.ucsc.rmsk.salmon.v1.3.0.sidx`
+#listOfSalmonOutDir=`find /private/groups/kimlab/kras.ipsc/ -type d -name gencode.v35.ucsc.rmsk.salmon.v1.3.0.sidx`
 
 # create an variable of type int
 declare -i i

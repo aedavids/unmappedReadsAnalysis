@@ -9,10 +9,6 @@
 #set -x # turn debug on
 # set + x # turn debug off
 
-aedwip: todo add to README
-
-
-
 scriptName=`basename $0`
 if [ $# -ne 2 ]; then
     echo "ERROR: usage $scriptName fastq aux_info/unmapped_names.txt"
