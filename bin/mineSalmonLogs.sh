@@ -18,9 +18,8 @@ by default the script assume data paths follow the the pattern of  /private/grou
 \n
 "
 
-    
 scriptName=`basename $0`
-if [ $# -ne 1 ]; then
+if [ ! $# -ge 1 ]; then
     printf "ERROR: usage $scriptName listOfSalmonLogs \n\n"
     # echo "example of how how to create list of SalmonOutDir"
     # echo " find /private/groups/kimlab/panc.plasma.2020 -name salmon_quant.log \ "
@@ -32,9 +31,19 @@ if [ $# -ne 1 ]; then
     exit 1
 fi
 
+if [[ ! -f $1 ]]
+then
+    printf "ERROR: listOfSalmonLogs $1 does not exist\n"
+    exit 1
+fi
+
 salmonLogs=`cat $1`
-# set -x # turn debug on
+set -x # turn debug on
 # set + x # turn debug off
+
+listOfSampleNames=$2
+echo AEDWIP $listOfSampleNames AEDWIP
+exit
 
 source createTmpFile.sh
 
