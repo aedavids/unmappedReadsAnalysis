@@ -21,12 +21,6 @@ by default the script assume data paths follow the the pattern of  /private/grou
 scriptName=`basename $0`
 if [ ! $# -ge 1 ]; then
     printf "ERROR: usage $scriptName listOfSalmonLogs \n\n"
-    # echo "example of how how to create list of SalmonOutDir"
-    # echo " find /private/groups/kimlab/panc.plasma.2020 -name salmon_quant.log \ "
-    # echo "  | grep sel.align.gencode.v35.ucsc.rmsk.salmon.v1.3.0.sidx \ "
-    # echo "  > panc.plasma.2020.sel.align.gencode.v35.ucsc.rmsk.salmon.v1.3.0.sidx.salmon.logs.txt "
-    # echo ""
-    # echo "tsv will be written to stdout "
     printf "$usage \n"
     exit 1
 fi
@@ -43,6 +37,14 @@ set -x # turn debug on
 
 listOfSampleNames=$2
 echo AEDWIP $listOfSampleNames AEDWIP
+
+if [[ ! -f $listOfSampleNames ]]
+then
+    echo listOfSampleNames does not exist
+else
+    echo we got a file
+fi
+
 exit
 
 source createTmpFile.sh
