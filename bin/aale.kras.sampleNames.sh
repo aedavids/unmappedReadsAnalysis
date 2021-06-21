@@ -16,8 +16,7 @@ example ref: sel.align.gencode.v35.ucsc.rmsk.salmon.v1.3.0.sidx \n\
 /private/groups/kimlab/aale.kras/data/bulk.rna.seq/aale/input/ctrl.1/sel.align.gencode.v35.ucsc.rmsk.salmon.v1.3.0.sidx/logs/salmon_quant.log\n\
 \n The sample will be the path string between dataDirPath and refIndexName \n\
 example: bulk.rna.seq/aale/input/ctrl.1
-\n\
-"
+\n"
 
 
 if [ ! $# -eq 3 ]; then
@@ -37,15 +36,29 @@ then
 fi
 
 
-# set -x # debug trace on
+set -x # debug trace on
 # set +x # debug trace off
 
+# remove everything after the ref index name
 #ref=sel.align.gencode.v35.ucsc.rmsk.salmon.v1.3.0.sidx
-sedExpr="'s/$ref.*\$//g'"
+sedExpr1="'s/$ref.*\$//g'"
 
 #(base) [aedavids@mustard aale.kras]$ echo "${sedExpr}"
 #'s/sel.align.gencode.v35.ucsc.rmsk.salmon.v1.3.0.sidx.*$//g'
 
 #eval sed "${sedExpr}" aale.kras.sel.align.gencode.v35.ucsc.rmsk.salmon.v1.3.0.sidx.salmon.logs.txt
-eval sed "${sedExpr}" $listOfSalmonLogs | sed 's/\/private\/groups\/kimlab\/aale.kras\/data\///g'
+#eval sed "${sedExpr1}" $listOfSalmonLogs | sed 's/\/private\/groups\/kimlab\/aale.kras\/data\///g'
+
+# remove the data path prefix
+# echo /private/groups/kimlab/aale.kras/data | sed 's/\//\\\//g'
+# \/private\/groups\/kimlab\/aale.kras\/data
+sedExpr2="'s/\//\\\//g'"
+
+#a="\/"; b='x \/ \/x'; regex="'s/${a}/${b}/g'"
+a="\/";
+b='\\\/';
+sedExpr2="'s/${a}/${b}/g'"
+eval sed "${sedExpr1}" $listOfSalmonLogs > t
+cat t
+eval sed "${sedExpr2}" t
 
