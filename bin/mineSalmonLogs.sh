@@ -4,15 +4,31 @@
 # 4/29/21
 #
 
+
+usage="usage $scriptName listOfSalmonLogs [listOfSampleNames] \n\
+creates a tsv file with a row for each sample containing meta data \n\
+\
+by default the script assume data paths follow the the pattern of  /private/groups/kimlab/kras.ipsc/data/bulk.data/day.5/ctrl.1/ \n\
+\nuse listOfSample names is your samples paths differ \
+\n\
+\nexample of how how to create list of SalmonOutDir \n\
+\tfind /private/groups/kimlab/panc.plasma.2020 -name salmon_quant.log \
+\n\t\t| grep sel.align.gencode.v35.ucsc.rmsk.salmon.v1.3.0.sidx \
+\n\t\t> panc.plasma.2020.sel.align.gencode.v35.ucsc.rmsk.salmon.v1.3.0.sidx.salmon.logs.txt \
+\n
+"
+
+    
 scriptName=`basename $0`
 if [ $# -ne 1 ]; then
-    echo "ERROR: usage $scriptName listOfSalmonLogs"
-    echo "example of how how to create list of SalmonOutDir"
-    echo " find /private/groups/kimlab/panc.plasma.2020 -name salmon_quant.log \ "
-    echo "  | grep sel.align.gencode.v35.ucsc.rmsk.salmon.v1.3.0.sidx \ "
-    echo "  > panc.plasma.2020.sel.align.gencode.v35.ucsc.rmsk.salmon.v1.3.0.sidx.salmon.logs.txt "
-    echo ""
-    echo "tsv will be written to stdout "
+    printf "ERROR: usage $scriptName listOfSalmonLogs \n\n"
+    # echo "example of how how to create list of SalmonOutDir"
+    # echo " find /private/groups/kimlab/panc.plasma.2020 -name salmon_quant.log \ "
+    # echo "  | grep sel.align.gencode.v35.ucsc.rmsk.salmon.v1.3.0.sidx \ "
+    # echo "  > panc.plasma.2020.sel.align.gencode.v35.ucsc.rmsk.salmon.v1.3.0.sidx.salmon.logs.txt "
+    # echo ""
+    # echo "tsv will be written to stdout "
+    printf "$usage \n"
     exit 1
 fi
 
