@@ -42,6 +42,7 @@ set -x # debug trace on
 # remove everything after the ref index name
 #ref=sel.align.gencode.v35.ucsc.rmsk.salmon.v1.3.0.sidx
 sedExpr1="'s/$ref.*\$//g'"
+eval sed "${sedExpr1}" $listOfSalmonLogs > t
 
 #(base) [aedavids@mustard aale.kras]$ echo "${sedExpr}"
 #'s/sel.align.gencode.v35.ucsc.rmsk.salmon.v1.3.0.sidx.*$//g'
@@ -57,8 +58,12 @@ sedExpr2="'s/\//\\\//g'"
 #a="\/"; b='x \/ \/x'; regex="'s/${a}/${b}/g'"
 a="\/";
 b='\\\/';
-sedExpr2="'s/${a}/${b}/g'"
-eval sed "${sedExpr1}" $listOfSalmonLogs > t
+sedExprMaker="'s/${a}/${b}/g'"
+
+sedExpr2Regex=`eval echo $dataDirPath | eval sed "${sedExprMaker}"`
+
+sedExpr2="'s/${sedExpr2Regex}//g'"
+
 cat t
 eval sed "${sedExpr2}" t
 
