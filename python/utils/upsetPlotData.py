@@ -15,9 +15,10 @@ class UpSetPlotData(object):
     classdocs
     
     ref: 
-        Notebook pae 219 " monday 6/7 upset plot data"
+        Notebook pape 219 " monday 6/7 upset plot data"
         https://pandas.pydata.org/pandas-docs/stable/user_guide/advanced.html
         https://upsetplot.readthedocs.io/en/stable/index.html
+        https://github.com/jnothman/UpSetPlot
     '''
     logger = logging.getLogger(__name__)
 

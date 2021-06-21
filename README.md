@@ -205,7 +205,13 @@ some shell scripts may use tools like fastqc that are installed in the conda env
   
   - calls selectUnmappedReadsFromFastq.sh
 
+  ```
+  setsid sh -c ' set -x; \
+    makeUnmappedFastq.sh \
+    ../data/panc.plasma.2020/panc.plasma.2020.v35Dirs.list.txt ' \
+    2>&1 > makeUnmappedFastq.sh.`../../extraCellularRNA/bin/dateStamp.sh`.out &
 
+  ```
   
 ## step 2) mineSalmonLogs.sh pipe line
 - mineSalmonLogs.sh 
@@ -271,3 +277,16 @@ mineSalmonLogs.sh, masterCountReads.sh -> countReads.sh
     - kras.ipsc.DESeq.normalize.v2.Rmd
       - uses DESeq to create normalized gene counts used in uniqueMappedCounts.ipynb
     
+
+### Running python unit test
+
+test code to construct upsetplot data
+https://upsetplot.readthedocs.io/en/stable/index.html
+```
+~/googleUCSC/kimLab/extraCellularRNA
+conda activate extraCellularRNA
+cd ~/googleUCSC/kimLab/unmappedReadsAnalysis
+export PYTHONPATH="${PYTHONPATH}:`pwd`/python"
+cd python/test/
+python -m unittest discover .
+```
