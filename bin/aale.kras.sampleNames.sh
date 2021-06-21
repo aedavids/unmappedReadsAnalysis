@@ -35,5 +35,5 @@ sedExpr="'s/$ref.*\$//g'"
 #'s/sel.align.gencode.v35.ucsc.rmsk.salmon.v1.3.0.sidx.*$//g'
 
 #eval sed "${sedExpr}" aale.kras.sel.align.gencode.v35.ucsc.rmsk.salmon.v1.3.0.sidx.salmon.logs.txt
-eval sed "${sedExpr}" $listOfSalmonLogs | sed 's/\/private\/groups\/kimlab\/aale.kras\///g'
+eval sed "${sedExpr}" $listOfSalmonLogs | sed 's/\/private\/groups\/kimlab\/aale.kras\/data\///g'
 
