@@ -39,7 +39,7 @@ listOfSampleNames=$2
 
 
 source createTmpFile.sh
-listOfTmpFiles = ""
+listOfTmpFiles=""
 
 # kl=/private/groups/kimlab
 # krasDir="${kl}/kras.ipsc/data"
@@ -81,7 +81,7 @@ then
     printf "salmonOut\n" > $salmonOutTmp
     cut -d / $grepOutTmp -f 10 >> $salmonOutTmp
 else
-    cat $listOfSampleName >> $sampleNameTmp
+    cat $listOfSampleNames >> $sampleNameTmp
 fi
 
 
