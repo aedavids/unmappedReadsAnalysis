@@ -32,7 +32,7 @@ then
 fi
 
 salmonLogs=`cat $1`
-set -x # turn debug on
+#set -x # turn debug on
 # set + x # turn debug off
 
 listOfSampleNames=$2
@@ -59,7 +59,7 @@ listOfTmpFiles=""
 # TODO AEDWIP pick mapping rate our of aux_info/meta_info.json instead of log file
 grepOutTmp=`createTmpFile`
 add_on_exit rm  $grepOutTmp
-listOfTmpFiles = "$listOfTmpFiles $grepOutTmp"
+listOfTmpFiles="$listOfTmpFiles $grepOutTmp"
 
 grep -i "mapping rate" ${salmonLogs} > $grepOutTmp
 
@@ -67,7 +67,7 @@ grep -i "mapping rate" ${salmonLogs} > $grepOutTmp
 # create sample name column data
 #
 sampleNameTmp=`createTmpFile`
-listOfTmpFiles = "$listOfTmpFiles $sampleNameTmp"    
+listOfTmpFiles="$listOfTmpFiles $sampleNameTmp"    
 
 add_on_exit rm $sampleNameTmp
 printf "sampleName\n" > $sampleNameTmp
@@ -92,7 +92,7 @@ fi
 # cut is a hack to pick out the numeric value
 # use tr to get rid of percent
 mappingRateTmp=`createTmpFile`
-listOfTmpFiles = "$listOfTmpFiles $mappingRateTmp"
+listOfTmpFiles="$listOfTmpFiles $mappingRateTmp"
 add_on_exit rm $mappingRateTmp
 printf "mappingRate\n" > $mappingRateTmp
 sed -n -e 's/^.*\(\(Mapping\).*\)/\1/p' $grepOutTmp  | cut -d = -f2 | tr "%" " " >> $mappingRateTmp
@@ -102,17 +102,17 @@ sed -n -e 's/^.*\(\(Mapping\).*\)/\1/p' $grepOutTmp  | cut -d = -f2 | tr "%" " "
 # we use a for loop so taht we find the correct cmd_info.json file
 #
 indexTmp=`createTmpFile`
-listOfTmpFiles = "$listOfTmpFiles $indexTmp"
+listOfTmpFiles="$listOfTmpFiles $indexTmp"
 add_on_exit rm $indexTmp
 printf "index\n" >> $indexTmp
 
 mates1Tmp=`createTmpFile`
-listOfTmpFiles = "$listOfTmpFiles $mates1Tmp"
+listOfTmpFiles="$listOfTmpFiles $mates1Tmp"
 add_on_exit rm $mates1Tmp
 printf "mate1\n" >> $mates1Tmp
 
 mates2Tmp=`createTmpFile`
-listOfTmpFiles = "$listOfTmpFiles $mates2Tmp"
+listOfTmpFiles="$listOfTmpFiles $mates2Tmp"
 add_on_exit rm $mates2Tmp
 printf "mate2\n" >> $mates2Tmp
 
@@ -153,7 +153,7 @@ done
 # count the number of unmapped reads
 #
 readCountTmp=`createTmpFile`
-listOfTmpFiles = "$listOfTmpFiles $readCountTmp"
+listOfTmpFiles="$listOfTmpFiles $readCountTmp"
 add_on_exit rm $readCountTmp
 masterCountReads.sh $salmonLogs > $readCountTmp
 
@@ -161,7 +161,7 @@ masterCountReads.sh $salmonLogs > $readCountTmp
 # create output file
 #
 pasteTmp=`createTmpFile`
-listOfTmpFiles = "$listOfTmpFiles $pasteTmp"
+listOfTmpFiles="$listOfTmpFiles $pasteTmp"
 add_on_exit rm $pasteTmp
 
 paste $sampleNameTmp $mappingRateTmp $salmonOutTmp $readCountTmp $indexTmp $mates1Tmp $mates2Tmp > $pasteTmp
