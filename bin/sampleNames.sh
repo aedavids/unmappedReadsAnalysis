@@ -36,34 +36,34 @@ then
 fi
 
 
-set -x # debug trace on
+source createTmpFile.sh
+
+# set -x # debug trace on
 # set +x # debug trace off
 
 # remove everything after the ref index name
 #ref=sel.align.gencode.v35.ucsc.rmsk.salmon.v1.3.0.sidx
 sedExpr1="'s/$ref.*\$//g'"
-eval sed "${sedExpr1}" $listOfSalmonLogs > t
-
-#(base) [aedavids@mustard aale.kras]$ echo "${sedExpr}"
-#'s/sel.align.gencode.v35.ucsc.rmsk.salmon.v1.3.0.sidx.*$//g'
-
-#eval sed "${sedExpr}" aale.kras.sel.align.gencode.v35.ucsc.rmsk.salmon.v1.3.0.sidx.salmon.logs.txt
-#eval sed "${sedExpr1}" $listOfSalmonLogs | sed 's/\/private\/groups\/kimlab\/aale.kras\/data\///g'
+tmp=`createTmpFile`
+eval sed "${sedExpr1}" $listOfSalmonLogs > $tmp
 
 # remove the data path prefix
+# we have to make a sed expression that escapes the path directory
+# deliminator. then apply it to the actual file names.
 # echo /private/groups/kimlab/aale.kras/data | sed 's/\//\\\//g'
-# \/private\/groups\/kimlab\/aale.kras\/data
-sedExpr2="'s/\//\\\//g'"
 
-#a="\/"; b='x \/ \/x'; regex="'s/${a}/${b}/g'"
 a="\/";
 b='\\\/';
 sedExprMaker="'s/${a}/${b}/g'"
 
 sedExpr2Regex=`eval echo $dataDirPath | eval sed "${sedExprMaker}"`
+# \/private\/groups\/kimlab\/aale.kras\/data
 
 sedExpr2="'s/${sedExpr2Regex}//g'"
 
-cat t
-eval sed "${sedExpr2}" t
+
+eval sed "${sedExpr2}" $tmp 
+
+
+'rm' $tmp
 
