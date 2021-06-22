@@ -172,6 +172,6 @@ printf "\n"
 # clean up tmp files
 for t in $listOfTmpFiles;
 do
-    'rm' $i
+    'rm' $t
 done
 
