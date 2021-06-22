@@ -71,6 +71,21 @@ function runSalmon() {
 
 ########## main
 
+scriptName=`basename $0`
+if [ $# -ne 4 ]; then
+    echo "ERROR: usage $scriptName salmonIndexDir rightReads leftReads outputDir"
+    echo "ERROR cli call: $@"
+    echo "see script header for more details"
+    exit 1
+fi
+
+salmonIndexDir="$1"
+rightReads="$2"
+leftReads="$3"
+outputDir="$4"
+
+runSalmon $salmonIndexDir $rightReads $leftReads $outputDir
+
 # set -x # turn debug on
 # # set + x # turn debug off
 

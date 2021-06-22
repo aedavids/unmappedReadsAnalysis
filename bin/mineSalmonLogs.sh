@@ -71,30 +71,18 @@ listOfTmpFiles="$listOfTmpFiles $sampleNameTmp"
 
 add_on_exit rm $sampleNameTmp
 printf "sampleName\n" > $sampleNameTmp
-
-
+    
 if [[ ! -f $listOfSampleNames ]]
 then
     cut -d / $grepOutTmp -f 5,6,7,8,9 >> $sampleNameTmp
+
+    salmonOutTmp=`createTmpFile`
+    add_on_exit rm $salmonOutTmp
+    printf "salmonOut\n" > $salmonOutTmp
+    cut -d / $grepOutTmp -f 10 >> $salmonOutTmp
 else
     cat $listOfSampleNames >> $sampleNameTmp
 fi
-
-#
-# create salmon out dir name column data
-# make it easier to select sets of meta data
-# example:
-# first col is salmonOut dir second column is path the actual index
-# often we use an index file that has been copied to /scratch for performance reasons
-# also the salmon out dir name often has other information encoded in it
-#
-# locus.te.combined.salmon.out /public/groups/kimlab/indexes/gen.32.ucsc.rmsk.index
-# gencode.te.locus.salmon.out	/public/groups/kimlab/indexes/gen.32.ucsc.rmsk.index
-
-salmonOutTmp=`createTmpFile`
-add_on_exit rm $salmonOutTmp
-printf "salmonOut\n" > $salmonOutTmp
-cut -d / $grepOutTmp -f 10 >> $salmonOutTmp
 
 
 # https://stackoverflow.com/a/41996668/4586180
