@@ -12,9 +12,14 @@
 
 # list of public fuctions
 # debug_on_exit
+
+#
 # add_on_exit
 #   see example bellow
+#   only runs if process is killed. It does not run if process terminates by running off the end of script
+#
 # createTmpFile
+# createTmpDir
 
 # -a type is array
 declare -a on_exit_items
@@ -87,7 +92,7 @@ function add_on_exit {
 
 
 
-function createTmpFile  {
+function createTmpFile {
     #set -x
     # {} executes in process
     # () executes as sub process
@@ -95,7 +100,25 @@ function createTmpFile  {
     # deleted
     #https://unix.stackexchange.com/a/181938
     prefix=`basename $0`
-    tmp=$(mktemp /tmp/${prefix}.XXXXXX)
+    # gi.ucsc.edu best practics is to use /data/tmp
+    # /tmp is small
+    tmp=$(mktemp /data/tmp/${prefix}.XXXXXX)
+    
+    # return name of tmp file
+    echo $tmp
+}
+
+function createTmpDir {
+    #set -x
+    # {} executes in process
+    # () executes as sub process
+    # create a tmp output file and make sure it will be
+    # deleted
+    #https://unix.stackexchange.com/a/181938
+    prefix=`basename $0`
+    # gi.ucsc.edu best practics is to use /data/tmp
+    # /tmp is small
+    tmp=$(mktemp --directory /data/tmp/${prefix}.XXXXXX)
     
     # return name of tmp file
     echo $tmp

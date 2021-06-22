@@ -34,13 +34,15 @@ if [ $validExitStatus -ne 0 ]; then
 fi
 
 source createTmpFile.sh
-namesList=`createTmpFile`
-add_on_exit rm $namesList
-grep "${flag}$" ${unmappedNames} | cut -d " " -f 1  > $namesList
+tmpNamesList=`createTmpFile`
+add_on_exit rm $tmpNamesList
+grep "${flag}$" ${unmappedNames} | cut -d " " -f 1  > $tmpNamesList
 
 #
 # selected the unmapped reads
 #
-seqtk subseq "${fastq}" "${namesList}"
+seqtk subseq "${fastq}" "${tmpNamesList}"
+
+'rm' $tmpNamesList
 
 

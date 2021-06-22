@@ -50,6 +50,10 @@ add_on_exit rm $mappedNames
 diff $allNames $unMappedNamesList | grep "^<" | cut -d " " -f 2 > $mappedNames
 
 #
-# select the mapped reads
-#
+# FASTA/Q sequence processing toolkit -- seqtk
+# extract subsequences from FASTA/Q
+# 
 seqtk subseq "${fastq}" "${mappedNames}"
+
+# clean up temp file
+rm unMappedNamesList mappedNames
