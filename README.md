@@ -227,6 +227,24 @@ some shell scripts may use tools like fastqc that are installed in the conda env
 
 mineSalmonLogs.sh, masterCountReads.sh -> countReads.sh
 
+```
+find /private/groups/kimlab/aale.kras/data -name salmon_quant.log 
+		| grep sel.align.gencode.v35.ucsc.rmsk.salmon.v1.3.0.sidx 
+		> ../data/aale.kras/aale.kras.sel.align.gencode.v35.ucsc.rmsk.salmon.v1.3.0.sidx.salmon.logs.txt
+        
+sampleNames.sh \
+    /private/groups/kimlab/aale.kras/data \
+    sel.align.gencode.v35.ucsc.rmsk.salmon.v1.3.0.sidx \
+    ../data/aale.kras/aale.kras.sel.align.gencode.v35.ucsc.rmsk.salmon.v1.3.0.sidx.salmon.logs.txt \
+    | tee ../data/aale.kras/aale.kras.sampleNames.txt
+    
+mineSalmonLogs.sh \
+    ../data/aale.kras/aale.kras.sel.align.gencode.v35.ucsc.rmsk.salmon.v1.3.0.sidx.salmon.logs.txt  \
+    ../data/aale.kras/aale.kras.sampleNames.txt \
+    | tee ../data/aale.kras/aale.kras.sel.align.gencode.v35.ucsc.rmsk.salmon.v1.3.0.sidx.salmonLogMetaData.tsv
+
+```
+
 ## down stream analysis
 - runSTARonUnmappedSalmon.sh
   - runs STAR with arguments 
