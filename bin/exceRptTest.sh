@@ -5,10 +5,10 @@ set -x
 
 printf "\n [INFO] begin `~/extraCellularRNA/bin/dateStamp.sh` \n\n"
 
-outdirRoot=/private/groups/kimlab/aedavids/exceRpt.out/smRNA-seqDataSet
-outdir="${outdirRoot}"`~/extraCellularRNA/bin/dateStamp.sh`
-mkdir -p ${outdir}
-chmod a+w ${outdir}
+outDirRoot=/private/groups/kimlab/aedavids/exceRpt.out/smRNA-seqDataSet
+outDir="${outDirRoot}"`~/extraCellularRNA/bin/dateStamp.sh`
+mkdir -p ${outDir}
+chmod a+rw ${outDir}
 
 USER_ID=`id -u`
 # -v ~/DirectoryContainingMyInputSample:/exceRptInput
