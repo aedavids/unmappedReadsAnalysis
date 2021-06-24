@@ -7,6 +7,13 @@ printf "\n [INFO] begin `~/extraCellularRNA/bin/dateStamp.sh` \n\n"
 
 outDirRoot=/private/groups/kimlab/aedavids/exceRpt.out/smRNA-seqDataSet
 outDir="${outDirRoot}"`~/extraCellularRNA/bin/dateStamp.sh`
+
+#
+# the colen in time stamp breaks docker parsing
+# /private/groups/kimlab/aedavids/exceRpt.out/smRNA-seqDataSet2021-06-24_10.17.13-PDT
+#
+outDir=`echo $outDir | sed 's/:/_/g'`
+
 mkdir -p ${outDir}
 chmod a+rw ${outDir}
 
