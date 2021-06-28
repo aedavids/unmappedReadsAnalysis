@@ -47,7 +47,7 @@ do
                 mate1="${unmappedDir}/mate1.mapped.fastq"
             elif [ $t == "unmapped" ];
             then
-                mate1="${unmappedDir}/mate1.unmapped.fastq"                
+                mate1="${unmappedDir}/mate1.unmapped.unmapped.fastq"                
             else
                 mate1="${unmappedDir}/mate1.${t}.unmapped.fastq"
             fi
